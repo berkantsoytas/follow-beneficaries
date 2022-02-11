@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <div class="bgresim"></div>
+    <div class="icerik">
+      <table class="table bg-light">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Author</th>
+            <th scope="col">Post</th>
+            <th scope="col">Date</th>
+            <th scope="col">Expected Rewards</th>
+          </tr>
+        </thead>
+        <tbody class="veri">
+          <tr>
+            <th scope="row">1</th>
+            <td>@morperi</td>
+            <td>
+              <a href="https://steemit.com/steemit/morperi/suspects-gizemli-malikane-mobile" target="_blank" rel="noopener noreferrer">Visited</a>
+            </td>
+            <td>A month ago</td>
+            <td>9.553 STEEM | 3.518</td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>@morperi</td>
+            <td>
+              <a href="https://steemit.com/steemit/morperi/suspects-gizemli-malikane-mobile" target="_blank" rel="noopener noreferrer">Visited</a>
+            </td>
+            <td>A month ago</td>
+            <td>9.553 STEEM | 3.518</td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>@morperi</td>
+            <td>
+              <a href="https://steemit.com/steemit/morperi/suspects-gizemli-malikane-mobile" target="_blank" rel="noopener noreferrer">Visited</a>
+            </td>
+            <td>A month ago</td>
+            <td>9.553 STEEM | 3.518</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      const electron = require("electron");
+      const { timeSince, request } = require("./helper");
+      const listOfData = document.querySelector(".veri");
+
+      request().then((value) => {
+        value.forEach((element) => {
+          // AUTHOR POST TİME EXPECTED REWARD
+          const tr = document.createElement("tr");
+          const th = document.createElement("th");
+          const tdAuthor = document.createElement("td");
+          const tdPost = document.createElement("td");
+          const tdTime = document.createElement("td");
+          const tdReward = document.createElement("td");
+
+          th.innerHTML = value.indexOf(element) + 1;
+          tdAuthor.innerHTML = element[5];
+          tdPost.innerHTML = `<a href="https://steemit.com/steemit/${element[5]}/${element[6]}" target="_blank" rel="noopener noreferrer">Visited</a>`;
+          tdTime.innerHTML = timeSince(element[0]);
+          tdReward.innerHTML = `${element[1]} STEEM | ${element[2]} SBD`;
+
+          tr.appendChild(th);
+          tr.appendChild(tdAuthor);
+          tr.appendChild(tdPost);
+          tr.appendChild(tdTime);
+          tr.appendChild(tdReward);
+
+          listOfData.appendChild(tr);
+        });
+      });
+    </script>
+  </body>
+</html>

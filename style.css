@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  background-color: #242424c5;
+  margin: 0;
+}
+.bgresim {
+  background-image: url(./assets/icons/bfmain.png);
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+  filter: blur(5px);
+}
+.icerik {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 70%;
+  padding: 40px 0;
+  text-align: center;
+}
+.veri {
+  overflow: auto;
+  width: 100%;
+  height: 700px;
+  padding: 0;
+  margin: 0;
+  background-color: #242424c5;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
