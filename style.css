@@ -19,7 +19,7 @@ html {
 }
 .icerik {
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
@@ -28,15 +28,12 @@ html {
   text-align: center;
 }
 .veri {
+  height: 500px;
+  max-height: 700px;
+  width: 170vw;
+  max-width: 100%;
+  position: absolute;
+  background-color: rgba(18, 19, 19, 0.76);
   overflow: auto;
-  width: 100%;
-  height: 700px;
-  padding: 0;
-  margin: 0;
-  background-color: #242424c5;
-  color: #fff;
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
+  color: white;
 }

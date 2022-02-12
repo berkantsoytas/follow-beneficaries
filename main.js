@@ -1,7 +1,7 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const { app, BrowserWindow, Menu } = electron;
 
 let mainWindow;
 
@@ -13,9 +13,9 @@ app.on("ready", () => {
     },
     autoHideMenuBar: true,
     width: 800,
-    height: 600,
+    height: 800,
     minWidth: 800,
-    minHeight: 600,
+    minHeight: 800,
     icon: path.join(__dirname, "assets/icons/png/bfmain.png"),
   });
 
@@ -26,10 +26,6 @@ app.on("ready", () => {
       slashes: true,
     })
   );
-
-  ipcMain.on("get-data", (err, data) => {
-    console.log(data);
-  });
 
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   Menu.setApplicationMenu(mainMenu);

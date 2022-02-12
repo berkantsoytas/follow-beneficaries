@@ -10,6 +10,17 @@ async function request() {
   return response;
 }
 
+async function lastBeneficaries() {
+  const currentTime = currentUnixTime();
+  const monthAgo = getAMonthAgo();
+  let response;
+  let lastReward;
+  const res = await axios.get(url + monthAgo + "-" + currentTime);
+  response = res.data.result.rows;
+  lastReward = response[response.length - 1];
+  return lastReward;
+}
+
 function getAMonthAgo() {
   let date = new Date();
   date.setMonth(date.getMonth() - 1);
@@ -50,4 +61,5 @@ function timeSince(date) {
 module.exports = {
   timeSince,
   request,
+  lastBeneficaries,
 };
