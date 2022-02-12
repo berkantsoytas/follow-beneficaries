@@ -21,19 +21,44 @@ html {
   position: absolute;
   top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -10%);
   z-index: 5;
   width: 70%;
   padding: 40px 0;
   text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 .veri {
   height: 500px;
   max-height: 700px;
   width: 170vw;
   max-width: 100%;
-  position: absolute;
+
   background-color: rgba(18, 19, 19, 0.76);
   overflow: auto;
   color: white;
+}
+
+table {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+thead {
+  flex: 0 0 auto;
+}
+
+tbody {
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
 }
