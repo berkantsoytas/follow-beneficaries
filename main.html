@@ -16,6 +16,7 @@
   <body>
     <div class="bgresim"></div>
     <div class="icerik">
+      <div id="optimization" class="none">Optimizing first use, please wait.</div>
       <table class="table bg-light">
         <thead>
           <tr>
@@ -27,7 +28,7 @@
           </tr>
         </thead>
         <tbody class="veri">
-          <tr>
+          <!-- <tr>
             <th scope="row">1</th>
             <td>@morperi</td>
             <td>
@@ -35,7 +36,7 @@
             </td>
             <td>A month ago</td>
             <td>9.553 STEEM | 3.518</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -43,6 +44,17 @@
       const electron = require("electron");
       const { timeSince, request } = require("./helper");
       const listOfData = document.querySelector(".veri");
+      const { ipcRenderer } = electron;
+      const itemChild = document.getElementById("optimization");
+
+      window.addEventListener("load", async () => {
+        const data = await request();
+        ipcRenderer.invoke("check-first", data).then((result) => {
+          setTimeout(() => {
+            itemChild.style.display = "none";
+          }, 3000);
+        });
+      });
 
       request().then((value) => {
         value.forEach((element) => {

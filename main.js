@@ -1,7 +1,7 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 
@@ -29,6 +29,13 @@ app.on("ready", () => {
 
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   Menu.setApplicationMenu(mainMenu);
+
+  ipcMain.handle("check-first", (error, data) => {
+    console.log({
+      data,
+    });
+    return true;
+  });
 });
 
 const mainMenuTemplate = [

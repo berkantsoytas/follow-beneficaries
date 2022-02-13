@@ -39,6 +39,11 @@ html {
   overflow: auto;
   color: white;
 }
+.none {
+  color: white;
+  font-size: large;
+  margin-bottom: 8px;
+}
 
 table {
   display: flex;
