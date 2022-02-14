@@ -42,7 +42,7 @@
     </div>
     <script>
       const electron = require("electron");
-      const { timeSince, request } = require("./helper");
+      const { timeSince, request, vestToSteem } = require("./helper");
       const listOfData = document.querySelector(".veri");
       const { ipcRenderer } = electron;
       const itemChild = document.getElementById("optimization");
@@ -50,37 +50,37 @@
       window.addEventListener("load", async () => {
         const data = await request();
         ipcRenderer.invoke("check-first", data).then((result) => {
-          setTimeout(() => {
-            itemChild.style.display = "none";
-          }, 3000);
+          console.log(result);
         });
       });
 
-      request().then((value) => {
-        value.forEach((element) => {
-          // AUTHOR POST TİME EXPECTED REWARD
-          const tr = document.createElement("tr");
-          const th = document.createElement("th");
-          const tdAuthor = document.createElement("td");
-          const tdPost = document.createElement("td");
-          const tdTime = document.createElement("td");
-          const tdReward = document.createElement("td");
+      setInterval(async () => {
+        request().then((value) => {
+          value.forEach(async (element) => {
+            // AUTHOR POST TİME EXPECTED REWARD
+            const tr = document.createElement("tr");
+            const th = document.createElement("th");
+            const tdAuthor = document.createElement("td");
+            const tdPost = document.createElement("td");
+            const tdTime = document.createElement("td");
+            const tdReward = document.createElement("td");
+            th.innerHTML = value.indexOf(element) + 1;
+            tdAuthor.innerHTML = element[5];
+            tdPost.innerHTML = `<a href="https://steemit.com/steemit/${element[5]}/${element[6]}" target="_blank" rel="noopener noreferrer">Visited</a>`;
+            tdTime.innerHTML = timeSince(element[0]);
+            tdReward.innerHTML = `${element[3]} STEEM | ${element[2]} SBD`;
+            tdReward.style.fontSize = "11px";
 
-          th.innerHTML = value.indexOf(element) + 1;
-          tdAuthor.innerHTML = element[5];
-          tdPost.innerHTML = `<a href="https://steemit.com/steemit/${element[5]}/${element[6]}" target="_blank" rel="noopener noreferrer">Visited</a>`;
-          tdTime.innerHTML = timeSince(element[0]);
-          tdReward.innerHTML = `${element[1]} STEEM | ${element[2]} SBD`;
+            tr.appendChild(th);
+            tr.appendChild(tdAuthor);
+            tr.appendChild(tdPost);
+            tr.appendChild(tdTime);
+            tr.appendChild(tdReward);
 
-          tr.appendChild(th);
-          tr.appendChild(tdAuthor);
-          tr.appendChild(tdPost);
-          tr.appendChild(tdTime);
-          tr.appendChild(tdReward);
-
-          listOfData.appendChild(tr);
+            listOfData.appendChild(tr);
+          });
         });
-      });
+      }, 15000);
     </script>
   </body>
 </html>

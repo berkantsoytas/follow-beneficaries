@@ -2,6 +2,10 @@ const electron = require("electron");
 const url = require("url");
 const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = electron;
+const config = require("./helper/config.json");
+const fs = require("fs-extra");
+
+const { lastBeneficaries } = require("./helper");
 
 let mainWindow;
 
@@ -31,10 +35,12 @@ app.on("ready", () => {
   Menu.setApplicationMenu(mainMenu);
 
   ipcMain.handle("check-first", (error, data) => {
-    console.log({
-      data,
-    });
-    return true;
+    if (config.firstStart) {
+      fs.ensureDir(path.join(__dirname, "./data"));
+      fs.writeJSONSync(path.join(__dirname, "./data/data.json"), {
+        data,
+      });
+    }
   });
 });
 

@@ -1,3 +1,5 @@
+const steem = require("steem");
+
 const axios = require("axios").default;
 const url = "https://sds.steemworld.org/rewards_api/getRewards/comment_benefactor_reward/post24/";
 
@@ -8,6 +10,17 @@ async function request() {
   const res = await axios.get(url + monthAgo + "-" + currentTime);
   response = res.data.result.rows;
   return response;
+}
+
+async function vestToSteem(vests) {
+  let steemPower;
+  await steem.api.getDynamicGlobalProperties(function (err, result) {
+    const totalVestingFundSteem = parseFloat(result.total_vesting_fund_steem.split(" ")[0]);
+    // Calculate the amount of STEEM to transfer
+    const totalVestingShares = parseFloat(result.total_vesting_shares.split(" ")[0]);
+    steemPower = steem.formatter.vestToSteem(vests, totalVestingShares, totalVestingFundSteem);
+  });
+  return steem;
 }
 
 async function lastBeneficaries() {
@@ -62,4 +75,5 @@ module.exports = {
   timeSince,
   request,
   lastBeneficaries,
+  vestToSteem,
 };
